@@ -1,4 +1,4 @@
-(ns jekker.core
+(ns chromedome.core
   (:require [cheshire.core :refer :all]))
 
 (defn in?

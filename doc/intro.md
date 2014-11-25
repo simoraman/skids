@@ -1,3 +1,3 @@
-# Introduction to jekker
+# Introduction to chromedome
 
 TODO: write [great documentation](http://jacobian.org/writing/what-to-write/)
