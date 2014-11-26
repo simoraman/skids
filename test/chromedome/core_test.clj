@@ -28,3 +28,12 @@
     (let [template "{\"key\":\"val\", \"foo\":\"bar\"}"
           json "{\"foo\":\"some value\", \"key\":\"val\"}"]
       (is (check template json)))))
+
+(deftest number
+  (testing "numeric value"
+    (let [template "{\"key\":\"number\"}"
+          json "{\"key\":1}"]
+      (is (check template json)))
+    (let [template "{\"key\":\"number\"}"
+          json "{\"key\":\"1\"}"]
+      (is (not (check template json))))))
