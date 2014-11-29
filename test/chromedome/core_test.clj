@@ -37,3 +37,12 @@
     (let [template "{\"key\":\"number\"}"
           json "{\"key\":\"1\"}"]
       (is (not (check template json))))))
+
+(deftest string
+  (testing "string"
+    (let [template "{\"key\":\"string\"}"
+          json "{\"key\":\"1\"}"]
+      (is (check template json)))
+    (let [template "{\"key\":\"string\"}"
+          json "{\"key\":1}"]
+      (is (not (check template json))))))

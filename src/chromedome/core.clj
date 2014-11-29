@@ -9,6 +9,7 @@
 (defn value-match [matcher val]
   (cond
    (= matcher "number" ) (number? val)
+   (= matcher "string") (string? val)
    :else true))
 
 (defn matches [template json]
