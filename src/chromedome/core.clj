@@ -10,6 +10,7 @@
   (cond
    (= matcher "number" ) (number? val)
    (= matcher "string") (string? val)
+   (= matcher "array") (vector? val)
    :else true))
 
 (defn matches [template json]

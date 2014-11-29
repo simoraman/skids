@@ -46,3 +46,12 @@
     (let [template "{\"key\":\"string\"}"
           json "{\"key\":1}"]
       (is (not (check template json))))))
+
+(deftest array
+  (testing "array"
+    (let [template "{\"key\":\"array\"}"
+          json "{\"key\":[1,2,3]}"]
+      (is (check template json)))
+    (let [template "{\"key\":\"array\"}"
+          json "{\"key\":1}"]
+      (is (not (check template json))))))
