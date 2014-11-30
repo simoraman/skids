@@ -6,11 +6,15 @@
   [seq elm]
   (some #(= elm %) seq))
 
+(defn- boolean? [val]
+  (or (= true val) (= false val)))
+
 (defn value-match [matcher val]
   (cond
    (= matcher "number" ) (number? val)
    (= matcher "string") (string? val)
    (= matcher "array") (vector? val)
+   (= matcher "boolean") (boolean? val)
    :else true))
 
 (defn matches [template json]

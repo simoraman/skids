@@ -55,3 +55,12 @@
     (let [template "{\"key\":\"array\"}"
           json "{\"key\":1}"]
       (is (not (check template json))))))
+
+(deftest boolean
+  (testing "boolean"
+    (let [template "{\"key\":\"boolean\"}"
+          json "{\"key\":true}"]
+      (is (check template json)))
+    (let [template "{\"key\":\"boolean\"}"
+          json "{\"key\":\"true\"}"]
+      (is (not (check template json))))))
