@@ -1,7 +1,7 @@
 (ns chromedome.core
   (:require [cheshire.core :refer :all]))
 
-(defn in?
+(defn- in?
   "true if seq contains elm"
   [seq elm]
   (some #(= elm %) seq))
@@ -9,7 +9,7 @@
 (defn- boolean? [val]
   (or (= true val) (= false val)))
 
-(defn value-match [matcher val]
+(defn- value-match [matcher val]
   (cond
    (= matcher "number" ) (number? val)
    (= matcher "string") (string? val)
@@ -18,7 +18,7 @@
    (= matcher "object") (map? val)
    :else true))
 
-(defn matches [template json]
+(defn- matches [template json]
   (cond
    (not-every? true? (map #(in? (keys json) %1) (keys template))) false
    :else (every? true? (map (fn [x] (value-match (get template (key x)) (val x))) json))))
