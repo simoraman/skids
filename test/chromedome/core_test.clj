@@ -64,3 +64,12 @@
     (let [template "{\"key\":\"boolean\"}"
           json "{\"key\":\"true\"}"]
       (is (not (check template json))))))
+
+(deftest object
+  (testing "object"
+    (let [template "{\"key\":\"object\"}"
+          json "{\"key\": { \"foo\":123 }}"]
+      (is (check template json)))
+    (let [template "{\"key\":\"object\"}"
+          json "{\"key\":\"foo\"}"]
+      (is (not (check template json))))))

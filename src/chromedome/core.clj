@@ -15,6 +15,7 @@
    (= matcher "string") (string? val)
    (= matcher "array") (vector? val)
    (= matcher "boolean") (boolean? val)
+   (= matcher "object") (map? val)
    :else true))
 
 (defn matches [template json]
