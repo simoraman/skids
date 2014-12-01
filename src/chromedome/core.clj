@@ -18,9 +18,12 @@
    (= matcher "object") (map? val)
    :else true))
 
+(defn- keys-match? [template json]
+  (every? true? (map #(in? (keys json) %1) (keys template))))
+
 (defn- matches [template json]
   (cond
-   (not-every? true? (map #(in? (keys json) %1) (keys template))) false
+   (not (keys-match? template json)) false
    :else (every? true? (map (fn [x] (value-match (get template (key x)) (val x))) json))))
 
 (defn check [template-string json-string]
