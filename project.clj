@@ -1,4 +1,4 @@
-(defproject chromedome "0.1.0-SNAPSHOT"
+(defproject skids "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "MIT"

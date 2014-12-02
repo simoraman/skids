@@ -1,4 +1,4 @@
-(ns chromedome.core
+(ns skids.core
   (:require [cheshire.core :refer :all]))
 
 (defn- in?

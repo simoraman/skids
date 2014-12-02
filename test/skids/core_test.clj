@@ -1,6 +1,6 @@
-(ns chromedome.core-test
+(ns skids.core-test
   (:require [clojure.test :refer :all]
-            [chromedome.core :refer :all]))
+            [skids.core :refer :all]))
 
 (deftest matching-keys
   (testing "json keys should match template"
