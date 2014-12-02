@@ -72,4 +72,8 @@
       (is (check template json)))
     (let [template "{\"key\":{ \"foo\":123 }}"
           json "{\"key\":\"foo\"}"]
+      (is (not (check template json)))))
+  (testing "object structure must be correct"
+    (let [template "{\"key\":{ \"foo\":123 }}"
+          json "{\"key\":{ \"foo\":true }}"]
       (is (not (check template json))))))
