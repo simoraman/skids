@@ -31,10 +31,10 @@
 
 (deftest number
   (testing "numeric value"
-    (let [template "{\"key\":\"number\"}"
+    (let [template "{\"key\":123}"
           json "{\"key\":1}"]
       (is (check template json)))
-    (let [template "{\"key\":\"number\"}"
+    (let [template "{\"key\":123}"
           json "{\"key\":\"1\"}"]
       (is (not (check template json))))))
 
@@ -49,27 +49,27 @@
 
 (deftest array
   (testing "array"
-    (let [template "{\"key\":\"array\"}"
+    (let [template "{\"key\":[3,2,1]}"
           json "{\"key\":[1,2,3]}"]
       (is (check template json)))
-    (let [template "{\"key\":\"array\"}"
+    (let [template "{\"key\":[1,2,3]}"
           json "{\"key\":1}"]
       (is (not (check template json))))))
 
 (deftest boolean
   (testing "boolean"
-    (let [template "{\"key\":\"boolean\"}"
+    (let [template "{\"key\":true}"
           json "{\"key\":true}"]
       (is (check template json)))
-    (let [template "{\"key\":\"boolean\"}"
+    (let [template "{\"key\":true}"
           json "{\"key\":\"true\"}"]
       (is (not (check template json))))))
 
 (deftest object
   (testing "object"
-    (let [template "{\"key\":\"object\"}"
+    (let [template "{\"key\":{ \"foo\":123 }}"
           json "{\"key\": { \"foo\":123 }}"]
       (is (check template json)))
-    (let [template "{\"key\":\"object\"}"
+    (let [template "{\"key\":{ \"foo\":123 }}"
           json "{\"key\":\"foo\"}"]
       (is (not (check template json))))))

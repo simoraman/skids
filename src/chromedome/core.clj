@@ -11,11 +11,11 @@
 
 (defn- value-match [matcher val]
   (cond
-   (= matcher "number" ) (number? val)
-   (= matcher "string") (string? val)
-   (= matcher "array") (vector? val)
-   (= matcher "boolean") (boolean? val)
-   (= matcher "object") (map? val)
+   (boolean? matcher) (boolean? val)
+   (vector? matcher) (vector? val)
+   (number? matcher) (number? val)
+   (string? matcher) (string? val)
+   (map? matcher) (map? val)
    :else true))
 
 (defn- keys-match? [template json]
