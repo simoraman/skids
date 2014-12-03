@@ -11,10 +11,12 @@
 
 (declare matches)
 
+(defn check-array [matcher val]
+  (if (vector? val) (if (map? (first val)) (matches (first matcher) (first val)) true) false))
 (defn- values-match? [matcher val]
   (cond
    (boolean? matcher) (boolean? val)
-   (vector? matcher) (vector? val)
+   (vector? matcher) (check-array matcher val)
    (number? matcher) (number? val)
    (string? matcher) (string? val)
    (map? matcher) (if (map? val) (matches matcher val) false)

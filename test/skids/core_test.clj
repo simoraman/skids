@@ -56,6 +56,14 @@
           json "{\"key\":1}"]
       (is (not (check template json))))))
 
+(deftest objects-in-array
+  (testing "objects in array should be checked"
+    (let [template "{\"key\":[{\"foo\":123}]}"
+          json "{\"key\":[{\"foo\":321}]}"
+          invalid-json "{\"key\":[{\"foo\":\"321\"}]}"]
+      (is (check template json))
+      (is (not (check template invalid-json))))))
+
 (deftest boolean
   (testing "boolean"
     (let [template "{\"key\":true}"
