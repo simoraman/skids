@@ -13,7 +13,11 @@
 
 ;;TODO should check all values in the target json
 (defn check-array [matcher val]
-  (if (vector? val) (if (map? (first val)) (matches (first matcher) (first val)) true) false))
+  (if (vector? val)
+    (if (map? (first val))
+      (every? true? (map (partial matches (first matcher)) val))
+      true)
+    false))
 
 (defn- value-match? [matcher val]
   (cond
@@ -28,7 +32,10 @@
   (every? true? (map #(in? (keys json) %1) (keys template))))
 
 (defn values-match? [template json]
-  (every? true? (map (fn [x] (value-match? (get template (key x)) (val x))) json)))
+  (every? true? (map (fn [x]
+                       (value-match? (get template (key x)) (val x)))
+                     json)))
+
 (defn- matches [template json]
   (cond
    (not (keys-match? template json)) false

@@ -64,6 +64,14 @@
       (is (check template json))
       (is (not (check template invalid-json))))))
 
+(deftest all-items-in-array
+  (testing "all items in array should be checked"
+    (let [template "{\"key\":[{\"foo\":123}]}"
+          json "{\"key\":[{\"foo\":321},{\"foo\":123}]}"
+          invalid-json "{\"key\":[{\"foo\":321},{\"foo\":\"321\"}]}"]
+      (is (check template json))
+      (is (not (check template invalid-json))))))
+
 (deftest boolean
   (testing "boolean"
     (let [template "{\"key\":true}"
@@ -85,3 +93,5 @@
     (let [template "{\"key\":{ \"foo\":123 }}"
           json "{\"key\":{ \"foo\":true }}"]
       (is (not (check template json))))))
+
+(run-tests)
