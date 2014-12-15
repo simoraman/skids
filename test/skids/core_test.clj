@@ -72,7 +72,7 @@
       (is (check template json))
       (is (not (check template invalid-json))))))
 
-(deftest boolean
+(deftest boolean-test
   (testing "boolean"
     (let [template "{\"key\":true}"
           json "{\"key\":true}"]
