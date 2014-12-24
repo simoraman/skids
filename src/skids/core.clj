@@ -9,6 +9,10 @@
 (defn- boolean? [val]
   (or (= true val) (= false val)))
 
+(defn- create-response
+  ([valid] {:valid valid})
+  ([valid message] {:valid valid :message message}))
+
 (declare matches)
 
 ;;TODO should check all values in the target json
