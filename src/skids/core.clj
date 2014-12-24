@@ -28,8 +28,12 @@
    (map? matcher) (if (map? val) (matches matcher val) false)
    :else true))
 
+(defn- key-match? [json key-to-test]
+  (cond
+   (in? (keys json) key-to-test) true
+   :else false))
 (defn keys-match? [template json]
-  (every? true? (map #(in? (keys json) %1) (keys template))))
+  (every? true? (map #(key-match? json %1) (keys template))))
 
 (defn values-match? [template json]
   (every? true? (map (fn [x]
@@ -44,4 +48,4 @@
 (defn check [template-string json-string]
   (let [template (parse-string template-string true)
         json (parse-string json-string true)]
-    (matches template json)))
+    {:valid (matches template json) :message "key key not found"}))
