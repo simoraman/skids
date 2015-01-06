@@ -98,7 +98,7 @@
   (testing "Should report missing key"
     (deftest missing-key
       (let [template "{\"key\":\"val\"}"
-            json "{\"key\":\"some value\"}"
+            json "{\"notkey\":\"some value\"}"
             result (check template json)]
         (is (= (:message result) "key key not found"))))))
 (run-tests)

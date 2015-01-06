@@ -19,7 +19,7 @@
 (defn check-array [matcher val]
   (if (vector? val)
     (if (map? (first val))
-      (every? true? (map (partial matches (first matcher)) val))
+      (every? (fn [x] (true? (:valid x))) (map (partial matches (first matcher)) val))
       true)
     false))
 
@@ -32,24 +32,30 @@
    (map? matcher) (if (map? val) (matches matcher val) false)
    :else true))
 
+(defn true-maybe? [x]
+  (or (true? x) (true? (:valid x))))
+(defn values-match? [template json]
+  (let [resp (every? true-maybe? (map (fn [x]
+                                        (value-match? (get template (key x)) (val x)))
+                                json))]
+    (create-response resp)))
+
 (defn- key-match? [json key-to-test]
   (cond
-   (in? (keys json) key-to-test) true
-   :else false))
-(defn keys-match? [template json]
-  (every? true? (map #(key-match? json %1) (keys template))))
+   (in? (keys json) key-to-test) (create-response true)
+   :else (create-response false (str "key " (name key-to-test) " not found"))))
 
-(defn values-match? [template json]
-  (every? true? (map (fn [x]
-                       (value-match? (get template (key x)) (val x)))
-                     json)))
+(defn keys-match? [template json]
+  (first (filter (fn [x] (not (:valid x))) (map #(key-match? json %1) (keys template)))))
 
 (defn- matches [template json]
-  (cond
-   (not (keys-match? template json)) false
-   :else (values-match? template json)))
+  (let [keys-ok? (keys-match? template json)]
+    (cond
+     (empty? keys-ok?) (values-match? template json)
+     :else keys-ok?)))
 
 (defn check [template-string json-string]
   (let [template (parse-string template-string true)
-        json (parse-string json-string true)]
-    {:valid (matches template json) :message "key key not found"}))
+        json (parse-string json-string true)
+        m (matches template json)]
+    m))
