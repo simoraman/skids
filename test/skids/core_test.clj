@@ -32,7 +32,7 @@
 (deftest number
   (testing "numeric value"
     (let [template "{\"key\":123}"
-          json "{\"key\":1}"]
+          json "{\"key\":12}"]
       (is (:valid (check template json))))
     (let [template "{\"key\":123}"
           json "{\"key\":\"1\"}"]
