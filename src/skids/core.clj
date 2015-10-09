@@ -14,7 +14,6 @@
   ([valid message] {:valid valid :message message}))
 
 (defn match [template [k v]]
-  (println (str template " " k " " v " getti " (get template k) " number:" (number? (get template k))))
   (if (get template k)
     (cond
       (boolean? v) (if (boolean? (get template k))
@@ -32,7 +31,10 @@
       (if (vector? (get template k))
         (create-response true)
         (create-response false (str (name k) " is not an array")))
-
+      (map? v)
+      (if (map? (get template k))
+        (map #(match (get template k) %) v)
+        (create-response false (str (name k) " is not an array")))
       :else (create-response true))
     (create-response false (str "key " (name k) " not found"))))
 
