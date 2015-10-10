@@ -17,9 +17,10 @@
   (let [current (get template k)]
     (if current
       (cond
-        (boolean? v) (if (boolean? current)
-                       (create-response true)
-                       (create-response false))
+        (boolean? v)
+        (if (boolean? current)
+          (create-response true)
+          (create-response false (str (name k) " is not a boolean")))
         (number? v)
         (if (number? current)
           (create-response true)
@@ -34,7 +35,7 @@
           (create-response false (str (name k) " is not an array")))
         (map? v)
         (if (map? current)
-          (map #(match current %) v)
+          (mapv #(match current %) v)
           (create-response false (str (name k) " is not an object")))
         :else (create-response true))
       (create-response false (str "key " (name k) " not found")))))
@@ -43,5 +44,6 @@
   (let [template (parse-string template-string true)
         json (parse-string json-string true)
         match-template (partial match json)
-        falses (filter #(= false (:valid %)) (map #(match-template %) template))]
+        matches (flatten (mapv #(match-template %) template))
+        falses (filter #(= false (:valid %)) matches)]
     (if (empty? falses) (create-response true) (first falses))))
