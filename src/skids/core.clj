@@ -31,7 +31,7 @@
           (create-response false (str (name k) " is not a string")))
         (vector? v)
         (if (vector? current)
-          (create-response true)
+          (mapv #(match {:lol (first v)} [:lol %]) current)
           (create-response false (str (name k) " is not an array")))
         (map? v)
         (if (map? current)
